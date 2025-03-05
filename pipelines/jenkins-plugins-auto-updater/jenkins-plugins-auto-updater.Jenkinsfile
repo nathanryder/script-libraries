@@ -16,7 +16,7 @@ pipeline {
         )
     }
     triggers {
-        cron('TZ=Europe/Dublin\n0 0 * * 7')
+        cron('TZ=Europe/Dublin\nH 0 * * 7')
     }
     environment {
         DISCORD_WEBHOOK = credentials('discord-notifications')
@@ -25,7 +25,7 @@ pipeline {
         stage('Update_Plugins') {
             steps {
                 script {
-                    def safePluginUpdateModule = load("jenkins-plugins-uptodate.groovy")
+                    def safePluginUpdateModule = load("pipelines/jenkins-plugins-auto-updater/jenkins-plugins-uptodate.groovy")
                     safePluginUpdateModule.list_jenkins_plugins("${WORKSPACE}", "plugins_list_BEFORE-UPDATE_${DATETIME}.txt")
                     (pluginsToReviewManually, pluginsDeprecated) = safePluginUpdateModule.jenkins_safe_plugins_update()
                     safePluginUpdateModule.list_jenkins_plugins("${WORKSPACE}", "plugins_list_AFTER-UPDATE_${DATETIME}.txt")
@@ -38,17 +38,14 @@ pipeline {
           script {
               archiveArtifacts "plugins_list_*_${DATETIME}.txt"
               if (!(pluginsToReviewManually.isEmpty())) {
-                discordSend description: "The following plugins need to get reviewed and updated manually:\n${pluginsToReviewManually}", footer: "[${env.JOB_NAME}](${env.BUILD_URL})", result: currentBuild.currentResult, title: "", webhookURL: '${env.DISCORD_WEBHOOK}'
+                discordSend description: "${pluginsToReviewManually}", link: "${env.BUILD_URL}", result: currentBuild.currentResult, title: "The following plugins need to get reviewed and updated manually", webhookURL: env.DISCORD_WEBHOOK
               } else if (!(pluginsDeprecated.isEmpty())) {
-                discordSend description: "The following plugins are deprecated and need to be deleted:\n${pluginsDeprecated}", footer: "[${env.JOB_NAME}](${env.BUILD_URL})", result: currentBuild.currentResult, title: "", webhookURL: '${env.DISCORD_WEBHOOK}'
+                discordSend description: "${pluginsDeprecated}", link: "${env.BUILD_URL}", result: currentBuild.currentResult, title: "The following plugins are deprecated and need to be deleted", webhookURL: env.DISCORD_WEBHOOK
               }
           }
         }
         failure {
-            script {
-                println("Test")
-            }
-            discordSend footer: "[${env.JOB_NAME}](${env.BUILD_URL})", result: currentBuild.currentResult, title: "Jenkins plugins auto updating failed!", webhookURL: '${env.DISCORD_WEBHOOK}'
+            discordSend link: "${env.BUILD_URL}", result: currentBuild.currentResult, title: "Jenkins plugins auto updating failed!", webhookURL: env.DISCORD_WEBHOOK
         }
     }
 }
