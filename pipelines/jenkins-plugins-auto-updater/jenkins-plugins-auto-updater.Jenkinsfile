@@ -16,7 +16,7 @@ pipeline {
         )
     }
     triggers {
-        cron('TZ=Europe/Dublin\nH 0 * * 7')
+        cron('TZ=Europe/Dublin\n0 0 * * 7')
     }
     environment {
         DISCORD_WEBHOOK = credentials('discord-notifications')
