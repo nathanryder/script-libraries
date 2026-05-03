@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     command:
       - "--log.level=INFO"
+      - "--api=true"
       - "--api.insecure=false"
       - "--api.dashboard=true"
       - "--providers.docker=true"
@@ -42,7 +43,7 @@ configs:
       http:
         routers:
           traefik-dashboard:
-            rule: "Host(`traefik.lan.nathanryder.xyz`)"
+            rule: "Host(`traefik.lan.nathanryder.xyz`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
             entryPoints:
               - websecure
             tls:
@@ -50,11 +51,25 @@ configs:
             service: api@internal
             middlewares:
               - dashboard-auth
+          traefik-dashboard-redirect:
+            rule: "Host(`traefik.lan.nathanryder.xyz`)"
+            entryPoints:
+              - websecure
+            tls:
+              certResolver: letsencrypt
+            middlewares:
+              - redirect-to-dashboard
+      service: api@internal
         middlewares:
           dashboard-auth:
             basicAuth:
               users:
                 - "${TRAEFIK_DASHBOARD_AUTH}"
+        redirect-to-dashboard:
+          redirectRegex:
+            regex: "^https://traefik.lan.nathanryder.xyz/?$"
+            replacement: "https://traefik.lan.nathanryder.xyz/dashboard/"
+            permanent: true
 
 volumes:
   traefik_certs:
