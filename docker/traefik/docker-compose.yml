@@ -29,7 +29,7 @@ services:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     volumes:
       - traefik_certs:/certs
-      - /run/user/1000/docker.sock:/var/run/docker.sock:ro
+      - /run/user/1000/docker.sock:/var/run/docker.sock
     configs:
       - source: traefik_dashboard
         target: /etc/traefik/dynamic/traefik-dashboard.yml
