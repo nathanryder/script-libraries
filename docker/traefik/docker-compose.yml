@@ -6,17 +6,57 @@ services:
     container_name: traefik
     pull_policy: always
     restart: unless-stopped
+    command:
+      - "--log.level=INFO"
+      - "--api.insecure=false"
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=traefik"
+      - "--providers.file.directory=/etc/traefik/dynamic"
+      - "--providers.file.watch=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.dnschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
+      - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/certs/acme.json"
     ports:
       - "80:80"
       - "443:443"
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     volumes:
-      - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./dynamic:/etc/traefik/dynamic:ro
       - traefik_certs:/certs
+      - /run/user/1000/docker.sock:/var/run/docker.sock:ro
+    configs:
+      - source: traefik_dashboard
+        target: /etc/traefik/dynamic/traefik-dashboard.yml
     networks:
       - traefik
+
+configs:
+  traefik_dashboard:
+    content: |
+      http:
+        routers:
+          traefik-dashboard:
+            rule: "Host(`traefik.lan.nathanryder.xyz`)"
+            entryPoints:
+              - websecure
+            tls:
+              certResolver: letsencrypt
+            service: api@internal
+            middlewares:
+              - dashboard-auth
+        middlewares:
+          dashboard-auth:
+            basicAuth:
+              users:
+                - "${TRAEFIK_DASHBOARD_AUTH}"
 
 volumes:
   traefik_certs:
