@@ -1,0 +1,17 @@
+http:
+  routers:
+    traefik-dashboard:
+      rule: "Host(`traefik.local.nathanryder.xyz`)"
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+      service: api@internal
+      middlewares:
+        - dashboard-auth
+
+  middlewares:
+    dashboard-auth:
+      basicAuth:
+        users:
+          - "${TRAEFIK_DASHBOARD_AUTH}"

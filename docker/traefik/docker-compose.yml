@@ -1,0 +1,26 @@
+services:
+  traefik:
+    image: traefik:latest
+    command:
+      - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}"
+    container_name: traefik
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+    volumes:
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./dynamic:/etc/traefik/dynamic:ro
+      - traefik_certs:/certs
+    networks:
+      - traefik
+
+volumes:
+  traefik_certs:
+
+networks:
+  traefik:
+    external: true
