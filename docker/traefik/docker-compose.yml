@@ -57,19 +57,19 @@ configs:
               - websecure
             tls:
               certResolver: letsencrypt
+            service: api@internal
             middlewares:
               - redirect-to-dashboard
-            service: api@internal  
         middlewares:
           dashboard-auth:
             basicAuth:
               users:
                 - "${TRAEFIK_DASHBOARD_AUTH}"
-        redirect-to-dashboard:
-          redirectRegex:
-            regex: "^https://traefik.lan.nathanryder.xyz/?$"
-            replacement: "https://traefik.lan.nathanryder.xyz/dashboard/"
-            permanent: true
+          redirect-to-dashboard:
+            redirectRegex:
+              regex: "^https://traefik.lan.nathanryder.xyz/?$"
+              replacement: "https://traefik.lan.nathanryder.xyz/dashboard/"
+              permanent: true
 
 volumes:
   traefik_certs:
