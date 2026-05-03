@@ -59,7 +59,7 @@ configs:
               certResolver: letsencrypt
             middlewares:
               - redirect-to-dashboard
-      service: api@internal
+            service: api@internal  
         middlewares:
           dashboard-auth:
             basicAuth:
