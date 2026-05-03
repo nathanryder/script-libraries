@@ -1,8 +1,6 @@
 services:
   traefik:
     image: traefik:latest
-    command:
-      - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}"
     container_name: traefik
     pull_policy: always
     restart: unless-stopped
