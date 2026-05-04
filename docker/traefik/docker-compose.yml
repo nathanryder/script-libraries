@@ -43,7 +43,7 @@ configs:
       http:
         routers:
           traefik-dashboard:
-            rule: "Host(`traefik.lan.nathanryder.xyz`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+            rule: "Host(`traefik.${DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
             entryPoints:
               - websecure
             tls:
@@ -52,7 +52,7 @@ configs:
             middlewares:
               - dashboard-auth
           traefik-dashboard-redirect:
-            rule: "Host(`traefik.lan.nathanryder.xyz`)"
+            rule: "Host(`traefik.${DOMAIN}`)"
             entryPoints:
               - websecure
             tls:
@@ -67,8 +67,8 @@ configs:
                 - "${TRAEFIK_DASHBOARD_AUTH}"
           redirect-to-dashboard:
             redirectRegex:
-              regex: "^https://traefik.lan.nathanryder.xyz/?$"
-              replacement: "https://traefik.lan.nathanryder.xyz/dashboard/"
+              regex: "^https://traefik.${DOMAIN}/?$"
+              replacement: "https://traefik.${DOMAIN}/dashboard/"
               permanent: true
 
 volumes:
