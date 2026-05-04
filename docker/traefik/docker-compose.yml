@@ -37,6 +37,7 @@ services:
     networks:
       - traefik
 
+# Configs
 configs:
   traefik_dashboard:
     content: |
