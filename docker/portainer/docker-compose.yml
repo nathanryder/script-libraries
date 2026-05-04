@@ -1,0 +1,26 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - /run/user/1000/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.lan.nathanryder.xyz`)"
+      - "traefik.http.routers.portainer.entrypoints=websecure"
+      - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9443"
+      - "traefik.http.services.portainer.loadbalancer.server.scheme=https"
+
+volumes:
+  portainer_data:
+
+networks:
+  traefik:
+    external: true
