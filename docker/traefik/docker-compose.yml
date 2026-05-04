@@ -40,7 +40,6 @@ services:
 configs:
   traefik_dashboard:
     content: |
-      test: ignore
       http:
         routers:
           traefik-dashboard:
