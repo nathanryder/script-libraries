@@ -34,10 +34,29 @@ services:
     configs:
       - source: traefik_dashboard
         target: /etc/traefik/dynamic/traefik-dashboard.yml
+      - source: homeassistant
+        target: /etc/traefik/dynamic/homeassistant.yml
     networks:
       - traefik
 
 configs:
+  homeassistant:
+    content: |
+      http:
+        routers:
+          homeassistant:
+            rule: "Host(`homeassistant.${DOMAIN}`)"
+            entryPoints:
+              - websecure
+            tls:
+              certResolver: letsencrypt
+            service: homeassistant
+        services:
+          homeassistant:
+            loadBalancer:
+              servers:
+                - url: "http://192.168.1.6:8123"
+                
   traefik_dashboard:
     content: |
       http:
