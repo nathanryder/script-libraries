@@ -32,6 +32,10 @@ services:
       - traefik_certs:/certs
       - /run/user/1000/docker.sock:/var/run/docker.sock
     configs:
+      - source: common
+        target: /etc/traefik/dynamic/common.yml
+      - source: proxmox
+        target: /etc/traefik/dynamic/proxmox.yml
       - source: traefik_dashboard
         target: /etc/traefik/dynamic/traefik-dashboard.yml
       - source: homeassistant
@@ -40,6 +44,36 @@ services:
       - traefik
 
 configs:
+  common:
+    content: |
+      http:
+        serversTransports:
+          skip-verify:
+            insecureSkipVerify: true
+        middlewares:
+          forwarded-proto:
+            headers:
+              customRequestHeaders:
+                X-Forwarded-Proto: "https"
+  proxmox:
+    content: |
+      http:
+        routers:
+          proxmox:
+            rule: "Host(`proxmox.${DOMAIN}`)"
+            entryPoints:
+              - websecure
+            tls:
+              certResolver: letsencrypt
+            service: proxmox
+            middlewares:
+              - forwarded-proto
+        services:
+          proxmox:
+            loadBalancer:
+              serversTransport: skip-verify
+              servers:
+                - url: "https://192.168.1.3:8006"
   homeassistant:
     content: |
       http:
@@ -56,7 +90,7 @@ configs:
             loadBalancer:
               servers:
                 - url: "http://192.168.1.6:8123"
-                
+
   traefik_dashboard:
     content: |
       http:
