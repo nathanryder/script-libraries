@@ -7,6 +7,8 @@ services:
     volumes:
       - /run/user/1000/docker.sock:/var/run/docker.sock
       - homepage_data:/app/config
+    environment:
+    - HOMEPAGE_ALLOWED_HOSTS=homepage.${DOMAIN}
     networks:
       - traefik
     labels:
@@ -15,10 +17,6 @@ services:
       - "traefik.http.routers.homepage.entrypoints=websecure"
       - "traefik.http.routers.homepage.tls.certresolver=letsencrypt"
       - "traefik.http.services.homepage.loadbalancer.server.port=3000"
-      - "homepage.group=Core VM"
-      - "homepage.name=Homepage"
-      - "homepage.icon=homepage.png"
-      - "homepage.href=https://homepage.${DOMAIN}"
 
 volumes:
   homepage_data:
