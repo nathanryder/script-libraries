@@ -1,4 +1,14 @@
 services:
+  homepage-init:
+    image: alpine:latest
+    container_name: homepage-init
+    command: >
+      sh -c "cp -r /config/. /app/config/"
+    volumes:
+      - ./config:/config:ro
+      - homepage_data:/app/config
+    restart: no
+
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
