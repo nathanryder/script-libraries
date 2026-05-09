@@ -15,12 +15,13 @@ services:
     container_name: traefik
     pull_policy: always
     restart: unless-stopped
-    command:
+    labels:
       - "homepage.group=Core VM"
       - "homepage.name=Traefik"
       - "homepage.icon=traefik.png"
       - "homepage.href=https://traefik.${DOMAIN}/dashboard/"
       - "homepage.description=Reverse Proxy"
+    command:
       - "--log.level=INFO"
       - "--api=true"
       - "--api.insecure=false"
