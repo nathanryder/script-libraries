@@ -2,8 +2,7 @@ services:
   homepage-init:
     image: alpine:latest
     container_name: homepage-init
-    command: >
-      sh -c "cp -r /config/. /app/config/"
+    command: sh -c "sleep infinity"
     volumes:
       - ./config:/config:ro
       - homepage_data:/app/config
