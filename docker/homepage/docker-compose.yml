@@ -1,6 +1,6 @@
 services:
   homepage-init:
-    image: alpine:latest
+    image: alpine/git:latest
     container_name: homepage-init
     command: sh -c "git clone https://github.com/nathanryder/script-libraries /repo &&
              cp -r /repo/docker/homepage/config/. /app/config/"
