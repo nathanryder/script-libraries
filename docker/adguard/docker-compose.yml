@@ -14,6 +14,11 @@ services:
     networks:
       - traefik
     labels:
+      - "homepage.group=Core VM"
+      - "homepage.name=AdGuard"
+      - "homepage.icon=adguard-home.png"
+      - "homepage.href=https://adguard.${DOMAIN}"
+      - "homepage.description=DNS & Ad Blocking"
       - "traefik.enable=true"
       - "traefik.http.routers.adguard.rule=Host(`adguard.${DOMAIN}`)"
       - "traefik.http.routers.adguard.entrypoints=websecure"

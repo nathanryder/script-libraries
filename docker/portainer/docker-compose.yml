@@ -11,6 +11,11 @@ services:
     networks:
       - traefik
     labels:
+      - "homepage.group=Core VM"
+      - "homepage.name=Portainer"
+      - "homepage.icon=portainer.png"
+      - "homepage.href=https://portainer.${DOMAIN}"
+      - "homepage.description=Docker Management"
       - "traefik.enable=true"
       - "traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN}`)"
       - "traefik.http.routers.portainer.entrypoints=websecure"

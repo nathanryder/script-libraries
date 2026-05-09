@@ -6,6 +6,11 @@ services:
     volumes:
       - ./actualbudget:/data
     labels:
+      - "homepage.group=Services VM"
+      - "homepage.name=Actual Budget"
+      - "homepage.icon=actual-budget.png"
+      - "homepage.href=https://actual-budget.${DOMAIN}"
+      - "homepage.description=Budget Tracker"
       - "traefik.enable=true"
       - "traefik.http.routers.actual-budget.rule=Host(`actualbudget.${DOMAIN}`)"
       - "traefik.http.routers.actual-budget.entrypoints=websecure"

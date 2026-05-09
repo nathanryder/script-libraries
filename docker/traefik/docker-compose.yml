@@ -16,6 +16,11 @@ services:
     pull_policy: always
     restart: unless-stopped
     command:
+      - "homepage.group=Core VM"
+      - "homepage.name=Traefik"
+      - "homepage.icon=traefik.png"
+      - "homepage.href=https://traefik.${DOMAIN}/dashboard/"
+      - "homepage.description=Reverse Proxy"
       - "--log.level=INFO"
       - "--api=true"
       - "--api.insecure=false"
