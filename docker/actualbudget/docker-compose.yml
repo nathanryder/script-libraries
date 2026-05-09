@@ -5,6 +5,12 @@ services:
       - '5006:5006'
     volumes:
       - ./actualbudget:/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.actual-budget.rule=Host(`actualbudget.${DOMAIN}`)"
+      - "traefik.http.routers.actual-budget.entrypoints=websecure"
+      - "traefik.http.routers.actual-budget.tls.certresolver=letsencrypt"
+      - "traefik.http.services.actual-budget.loadbalancer.server.port=5006"
     healthcheck:
       test: ['CMD-SHELL', 'node src/scripts/health-check.js']
       interval: 60s

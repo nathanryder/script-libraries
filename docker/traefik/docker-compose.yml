@@ -1,4 +1,15 @@
 services:
+  redis:
+      image: redis:latest
+      container_name: redis
+      ports:
+        - '6379:6379'
+      volumes:
+        - redis-data:/data/redis
+      restart: unless-stopped
+      networks:
+        - traefik
+
   traefik:
     image: traefik:latest
     container_name: traefik
@@ -12,6 +23,7 @@ services:
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=traefik"
+      - "--providers.redis.endpoints=redis:6379"
       - "--providers.file.directory=/etc/traefik/dynamic"
       - "--providers.file.watch=true"
       - "--entrypoints.web.address=:80"
@@ -40,8 +52,6 @@ services:
         target: /etc/traefik/dynamic/traefik-dashboard.yml
       - source: homeassistant
         target: /etc/traefik/dynamic/homeassistant.yml
-      - source: actualbudget
-        target: /etc/traefik/dynamic/actualbudget.yml
     networks:
       - traefik
 
@@ -92,22 +102,6 @@ configs:
             loadBalancer:
               servers:
                 - url: "${HOMEASSISTANT_URL}"
-  actualbudget:
-    content: |
-      http:
-        routers:
-          actualbudget:
-            rule: "Host(`actualbudget.${DOMAIN}`)"
-            entryPoints:
-              - websecure
-            tls:
-              certResolver: letsencrypt
-            service: actualbudget
-        services:
-          actualbudget:
-            loadBalancer:
-              servers:
-                - url: "${ACTUALBUDGET_URL}"
 
   traefik_dashboard:
     content: |
@@ -144,6 +138,7 @@ configs:
 
 volumes:
   traefik_certs:
+  redis-data:
 
 networks:
   traefik:

@@ -1,0 +1,9 @@
+services:
+  traefik-kop:
+    image: "ghcr.io/jittering/traefik-kop:latest"
+    restart: unless-stopped
+    volumes:
+      - /run/user/1000/docker.sock:/var/run/docker.sock
+    environment:
+      - "REDIS_ADDR=${REDIS_ADDRESS}"
+      - "BIND_IP=${BIND_IP}"
