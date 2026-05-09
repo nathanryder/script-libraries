@@ -2,8 +2,10 @@ services:
   homepage-init:
     image: alpine/git:latest
     container_name: homepage-init
-    command: sh -c "git clone https://github.com/nathanryder/script-libraries /repo &&
-             cp -r /repo/docker/homepage/config/. /app/config/"
+    entrypoint: sh
+    command: >
+      -c "git clone https://github.com/nathanryder/script-libraries /repo &&
+      cp -r /repo/docker/homepage/config/. /app/config/"
     volumes:
       - ./config:/config:ro
       - homepage_data:/app/config
