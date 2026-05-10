@@ -1,0 +1,35 @@
+services:
+  wealthfolio:
+    image: wealthfolio/wealthfolio:latest
+    container_name: wealthfolio
+    restart: unless-stopped
+    expose:
+      - "8088"
+    volumes:
+      - wealthfolio-data:/data
+    environment:
+      WF_LISTEN_ADDR: "0.0.0.0:8088"
+      WF_DB_PATH: "/data/wealthfolio.db"
+      WF_SECRET_KEY: "${WF_SECRET_KEY:?Set WF_SECRET_KEY}"
+      WF_AUTH_REQUIRED: "false"
+    healthcheck:
+      test:
+        ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8088/api/v1/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 128M
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:size=64M
+
+volumes:
+  wealthfolio-data:
