@@ -7,8 +7,6 @@ services:
       - "8088"
     volumes:
       - wealthfolio-data:/data
-    networks:
-      - traefik
     environment:
       WF_LISTEN_ADDR: "0.0.0.0:8088"
       WF_DB_PATH: "/data/wealthfolio.db"
@@ -46,7 +44,3 @@ services:
 
 volumes:
   wealthfolio-data:
-
-networks:
-  traefik:
-    external: true
