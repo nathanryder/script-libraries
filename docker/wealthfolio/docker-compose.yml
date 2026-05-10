@@ -7,11 +7,24 @@ services:
       - "8088"
     volumes:
       - wealthfolio-data:/data
+    networks:
+      - traefik
     environment:
       WF_LISTEN_ADDR: "0.0.0.0:8088"
       WF_DB_PATH: "/data/wealthfolio.db"
       WF_SECRET_KEY: "${WF_SECRET_KEY:?Set WF_SECRET_KEY}"
       WF_AUTH_REQUIRED: "false"
+    labels:
+      - "homepage.group=Services VM"
+      - "homepage.name=Wealthfolio"
+      - "homepage.icon=wealthfolio.png"
+      - "homepage.href=https://wealthfolio.${DOMAIN}"
+      - "homepage.description=Personal Finance Tracker"
+      - "traefik.enable=true"
+      - "traefik.http.routers.wealthfolio.rule=Host(`wealthfolio.${DOMAIN}`)"
+      - "traefik.http.routers.wealthfolio.entrypoints=websecure"
+      - "traefik.http.routers.wealthfolio.tls.certresolver=letsencrypt"
+      - "traefik.http.services.wealthfolio.loadbalancer.server.port=8088"
     healthcheck:
       test:
         ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8088/api/v1/healthz"]
@@ -33,3 +46,7 @@ services:
 
 volumes:
   wealthfolio-data:
+
+networks:
+  traefik:
+    external: true
