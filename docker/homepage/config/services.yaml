@@ -2,17 +2,17 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services/
 
+- Standalone:
+    - Proxmox:
+        href: https://proxmox.lan.nathanryder.xyz
+        icon: proxmox.png
+        description: Hypervisor
+    - Home Assistant:
+        href: https://homeassistant.lan.nathanryder.xyz
+        icon: home-assistant.png
+        description: Home Automation
+
 - My First Group:
     - My First Service:
         href: http://localhost/
         description: Homepage is awesome
-
-- My Second Group:
-    - My Second Service:
-        href: http://localhost/
-        description: Homepage is the best
-
-- My Third Group:
-    - My Third Service:
-        href: http://localhost/
-        description: Homepage test
