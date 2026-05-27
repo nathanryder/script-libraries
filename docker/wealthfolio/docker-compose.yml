@@ -23,6 +23,7 @@ services:
       - "traefik.http.routers.wealthfolio.entrypoints=websecure"
       - "traefik.http.routers.wealthfolio.tls.certresolver=letsencrypt"
       - "traefik.http.services.wealthfolio.loadbalancer.server.port=8088"
+      - "traefik.http.routers.wealthfolio.middlewares=authentik-forward-auth@file"
     healthcheck:
       test:
         ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8088/api/v1/healthz"]
