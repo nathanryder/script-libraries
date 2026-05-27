@@ -21,6 +21,9 @@ services:
       - "traefik.http.routers.portainer.entrypoints=websecure"
       - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+    dns:
+      - 192.168.1.4
+      - 1.1.1.1
 
 volumes:
   portainer_data:
