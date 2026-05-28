@@ -133,6 +133,7 @@ configs:
               certResolver: letsencrypt
             service: api@internal
             middlewares:
+              - authentik-forward-auth@file
               - redirect-to-dashboard
         middlewares:
           dashboard-auth:
