@@ -5,6 +5,12 @@ services:
       - '5006:5006'
     volumes:
       - ./actualbudget:/data
+    environment:
+      - ACTUAL_OPENID_DISCOVERY_URL=https://auth.${DOMAIN}/application/o/actual-budget/.well-known/openid-configuration
+      - ACTUAL_OPENID_CLIENT_ID=${ACTUAL_OPENID_CLIENT_ID}
+      - ACTUAL_OPENID_CLIENT_SECRET=${ACTUAL_OPENID_CLIENT_SECRET}
+      - ACTUAL_OPENID_SERVER_HOSTNAME=https://actualbudget.${DOMAIN}
+      - ACTUAL_OPENID_AUTH_METHOD=openid
     labels:
       - "homepage.group=Services VM"
       - "homepage.name=Actual Budget"
