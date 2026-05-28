@@ -6,7 +6,7 @@ services:
     volumes:
       - ./actualbudget:/data
     environment:
-      - ACTUAL_OPENID_DISCOVERY_URL=https://auth.${DOMAIN}/application/o/actual-budget/.well-known/openid-configuration
+      - ACTUAL_OPENID_DISCOVERY_URL=https://auth.${DOMAIN}/application/o/actualbudget/.well-known/openid-configuration
       - ACTUAL_OPENID_CLIENT_ID=${ACTUAL_OPENID_CLIENT_ID}
       - ACTUAL_OPENID_CLIENT_SECRET=${ACTUAL_OPENID_CLIENT_SECRET}
       - ACTUAL_OPENID_SERVER_HOSTNAME=https://actualbudget.${DOMAIN}
