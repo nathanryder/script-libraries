@@ -123,7 +123,8 @@ configs:
               certResolver: letsencrypt
             service: api@internal
             middlewares:
-              - dashboard-auth
+              - authentik-forward-auth@file
+              # - dashboard-auth
           traefik-dashboard-redirect:
             rule: "Host(`traefik.${DOMAIN}`)"
             entryPoints:
