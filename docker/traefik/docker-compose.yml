@@ -41,6 +41,7 @@ services:
       - "--certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
       - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}"
       - "--certificatesresolvers.letsencrypt.acme.storage=/certs/acme.json"
+      - "--entrypoints.websecure.forwardedHeaders.trustedIPs=127.0.0.1/8,192.168.1.0/24,172.16.0.0/12"
     ports:
       - "80:80"
       - "443:443"
