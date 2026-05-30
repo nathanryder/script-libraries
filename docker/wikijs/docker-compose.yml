@@ -10,6 +10,12 @@ services:
       - POSTGRES_PASSWORD=${WIKIJS_DB_PASS}
     volumes:
       - wikijs_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
 
   wikijs:
     image: ghcr.io/requarks/wiki:2
