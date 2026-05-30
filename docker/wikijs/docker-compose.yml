@@ -25,6 +25,9 @@ services:
     depends_on:
       wikijs-db:
         condition: service_healthy
+    dns:
+      - 192.168.1.4
+      - 1.1.1.1
     ports:
       - "3000:3000"
     environment:
