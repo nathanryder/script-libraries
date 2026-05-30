@@ -1,0 +1,43 @@
+services:
+  wikijs-db:
+    image: postgres:16-alpine
+    container_name: wikijs-db
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${WIKIJS_DB_NAME}
+      - POSTGRES_USER=${WIKIJS_DB_USER}
+      - POSTGRES_PASSWORD=${WIKIJS_DB_PASS}
+    volumes:
+      - wikijs_db:/var/lib/postgresql/data
+
+  wikijs:
+    image: ghcr.io/requarks/wiki:2
+    container_name: wikijs
+    pull_policy: always
+    restart: unless-stopped
+    depends_on:
+      wikijs-db:
+        condition: service_healthy
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=wikijs-db
+      - DB_PORT=5432
+      - DB_NAME=${WIKIJS_DB_NAME}
+      - DB_USER=${WIKIJS_DB_USER}
+      - DB_PASS=${WIKIJS_DB_PASS}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wikijs.rule=Host(`wiki.${DOMAIN}`)"
+      - "traefik.http.routers.wikijs.entrypoints=websecure"
+      - "traefik.http.routers.wikijs.tls.certresolver=letsencrypt"
+      - "traefik.http.services.wikijs.loadbalancer.server.port=3000"
+      - "homepage.group=Services VM"
+      - "homepage.name=Wiki.js"
+      - "homepage.icon=wikijs.png"
+      - "homepage.href=https://wiki.${DOMAIN}"
+      - "homepage.description=Documentation"
+      - "homepage.docker=services-vm"
+
+volumes:
+  wikijs_db:

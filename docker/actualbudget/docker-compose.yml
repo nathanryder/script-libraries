@@ -17,6 +17,7 @@ services:
       - "homepage.icon=actual-budget.png"
       - "homepage.href=https://actualbudget.${DOMAIN}"
       - "homepage.description=Budget Tracker"
+      - "homepage.docker=services-vm"
       - "traefik.enable=true"
       - "traefik.http.routers.actual-budget.rule=Host(`actualbudget.${DOMAIN}`)"
       - "traefik.http.routers.actual-budget.entrypoints=websecure"

@@ -16,6 +16,7 @@ services:
       - "homepage.group=Services VM"
       - "homepage.name=Wealthfolio"
       - "homepage.icon=wealthfolio.png"
+      - "homepage.docker=services-vm"
       - "homepage.href=https://wealthfolio.${DOMAIN}"
       - "homepage.description=Personal Finance Tracker"
       - "traefik.enable=true"
