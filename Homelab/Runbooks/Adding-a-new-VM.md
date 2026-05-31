@@ -2,7 +2,7 @@
 title: Adding A New VM
 description: 
 published: true
-date: 2026-05-31T20:30:34.745Z
+date: 2026-05-31T20:30:41.216Z
 tags: 
 editor: markdown
 dateCreated: 2026-05-31T19:30:41.005Z
@@ -34,6 +34,7 @@ Then apply the configuration: `netplan apply`
 ## Tailscale configuration
 
 Follow steps in [Tailscale Setup](https://wiki.lan.nathanryder.xyz/en/Homelab/Setup/3-Tailscale-Setup)
+
 
 ## Setup rootless Docker
 
