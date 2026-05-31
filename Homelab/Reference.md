@@ -2,14 +2,15 @@
 
 ## IP Addresses
 
-| Host          | IP            | Hostname    |
-| ------------- | ------------- | ----------- |
-| Router        | 192.168.1.254 |             |
-| Proxmox host  | 192.168.1.3   | HL-HV01P    |
-| Core VM       | 192.168.1.4   | HL-CORE01V  |
-| Services VM   | 192.168.1.5   | HL-SRV01V   |
-| HAOS VM       | 192.168.1.6   |             |
-| External Dedi | 192.99.0.159  | SYS-MISC01P |
+| Host             | IP            | Hostname    |
+| ---------------- | ------------- | ----------- |
+| Router           | 192.168.1.254 |             |
+| Proxmox host     | 192.168.1.3   | HL-HV01P    |
+| Core VM          | 192.168.1.4   | HL-CORE01V  |
+| Services VM      | 192.168.1.5   | HL-SRV01V   |
+| Observability VM | 192.168.1.7   | HL-OBS01V   |
+| HAOS VM          | 192.168.1.6   |             |
+| External Dedi    | 192.99.0.159  | SYS-MISC01P |
 
 ## Domain Reference
 

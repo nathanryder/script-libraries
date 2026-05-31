@@ -6,11 +6,12 @@ A single Proxmox host (`HL-HV01P`) runs three VMs on a home LAN (`192.168.1.0/24
 
 ## VMs
 
-| VM | Hostname | IP | Purpose |
-|---|---|---|---|
-| Core VM | HL-CORE01V | 192.168.1.4 | Infrastructure and networking |
-| Services VM | HL-SVC01V | 192.168.1.5 | User-facing applications |
-| HAOS VM | - | 192.168.1.6 | Home Assistant OS |
+| VM               | Hostname   | IP          | Purpose                            |
+| ---------------- | ---------- | ----------- | ---------------------------------- |
+| Core VM          | HL-CORE01V | 192.168.1.4 | Infrastructure and networking      |
+| Services VM      | HL-SVC01V  | 192.168.1.5 | User-facing applications           |
+| Observability VM | HL-OBS01V  | 192.168.1.7 | Observability, logging, monitoring |
+| HAOS VM          | -          | 192.168.1.6 | Home Assistant OS                  |
 
 ## Core VM
 
