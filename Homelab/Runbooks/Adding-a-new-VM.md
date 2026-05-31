@@ -2,7 +2,7 @@
 title: Adding A New VM
 description: 
 published: true
-date: 2026-05-31T20:29:52.810Z
+date: 2026-05-31T20:30:34.745Z
 tags: 
 editor: markdown
 dateCreated: 2026-05-31T19:30:41.005Z
@@ -49,5 +49,7 @@ Follow steps in [Portainer Setup](https://wiki.lan.nathanryder.xyz/en/Homelab/Se
 ## Traefik-kop for auto discovery
 
 Deploy `/docker/traefik-kop/docker-compose.yml` using portainer
+
+Detailed information on traefik-kop setup available on the [Traefik-kop Setup Page](https://wiki.lan.nathanryder.xyz/en/Homelab/Setup/9-traefik-kop-Setup)
 
 ## Homepage auto discovery
