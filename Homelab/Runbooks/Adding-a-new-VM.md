@@ -2,7 +2,7 @@
 title: Adding A New VM
 description: 
 published: true
-date: 2026-05-31T19:50:31.341Z
+date: 2026-05-31T20:22:06.373Z
 tags: 
 editor: markdown
 dateCreated: 2026-05-31T19:30:41.005Z
@@ -37,7 +37,12 @@ Follow steps in [Tailscale Setup](https://wiki.lan.nathanryder.xyz/en/Homelab/Se
 
 ## Setup rootless Docker
 
+Follow steps in [Rootless Docker Setup](https://wiki.lan.nathanryder.xyz/en/Homelab/Setup/4-Rootless-Docker-Setup)
+
 ## Setup Portainer
+
+Follow steps in [Portainer Setup](https://wiki.lan.nathanryder.xyz/en/Homelab/Setup/7-Portainer-Setup)
+
 
 ## Socket Proxy
 
