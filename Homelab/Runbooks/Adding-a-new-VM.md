@@ -2,18 +2,20 @@
 title: Adding A New VM
 description: 
 published: true
-date: 2026-05-31T19:30:41.005Z
+date: 2026-05-31T19:43:22.015Z
 tags: 
 editor: markdown
 dateCreated: 2026-05-31T19:30:41.005Z
 ---
 
 ## Set hostname
-`hostname HL-OBS01V`
+`sudo hostnamectl set-hostname HL-OBS01V`
+
+Update /etc/hosts with the new hostname
 
 ## Set static ip
 
-Add the netconfig to /etc/cloud/cloud.cfg.d/10-netcfg.cfg
+Add the netconfig to /etc/netplan/50-cloud-init.yaml
 ```yaml
 network:
   version: 2
@@ -28,3 +30,15 @@ network:
 ```
 
 Then apply the configuration: `netplan apply`
+
+## Tailscale configuration
+
+## Setup rootless Docker
+
+## Setup Portainer
+
+## Socket Proxy
+
+## Traefik-kop for auto discovery
+
+## Homepage auto discovery
