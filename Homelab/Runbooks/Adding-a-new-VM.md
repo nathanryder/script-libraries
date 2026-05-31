@@ -2,7 +2,7 @@
 title: Adding A New VM
 description: 
 published: true
-date: 2026-05-31T20:30:41.216Z
+date: 2026-05-31T20:31:22.171Z
 tags: 
 editor: markdown
 dateCreated: 2026-05-31T19:30:41.005Z
@@ -35,7 +35,6 @@ Then apply the configuration: `netplan apply`
 
 Follow steps in [Tailscale Setup](https://wiki.lan.nathanryder.xyz/en/Homelab/Setup/3-Tailscale-Setup)
 
-
 ## Setup rootless Docker
 
 Follow steps in [Rootless Docker Setup](https://wiki.lan.nathanryder.xyz/en/Homelab/Setup/4-Rootless-Docker-Setup)
@@ -44,13 +43,13 @@ Follow steps in [Rootless Docker Setup](https://wiki.lan.nathanryder.xyz/en/Home
 
 Follow steps in [Portainer Setup](https://wiki.lan.nathanryder.xyz/en/Homelab/Setup/7-Portainer-Setup)
 
-
-## Socket Proxy
-
 ## Traefik-kop for auto discovery
 
 Deploy `/docker/traefik-kop/docker-compose.yml` using portainer
 
 Detailed information on traefik-kop setup available on the [Traefik-kop Setup Page](https://wiki.lan.nathanryder.xyz/en/Homelab/Setup/9-traefik-kop-Setup)
+
+## Socket Proxy
+
 
 ## Homepage auto discovery
