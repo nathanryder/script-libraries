@@ -2,7 +2,7 @@
 title: Adding A New VM
 description: 
 published: true
-date: 2026-05-31T23:18:24.264Z
+date: 2026-05-31T23:22:36.240Z
 tags: 
 editor: markdown
 dateCreated: 2026-05-31T19:30:41.005Z
@@ -54,3 +54,10 @@ Detailed information on traefik-kop setup available on the [Traefik-kop Setup Pa
 Deploy `/docker/socket-proxy/docker-compose.yml` using portainer
 
 ## Homepage auto discovery
+
+Add the below configuration for docker socket proxy to `/docker/homepage/config/docker.yaml`
+```yaml
+NAME-vm:
+  host: VM_HOST
+  port: 2375
+```
