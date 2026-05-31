@@ -2,7 +2,7 @@
 title: Adding A New VM
 description: 
 published: true
-date: 2026-05-31T20:31:22.171Z
+date: 2026-05-31T23:18:24.264Z
 tags: 
 editor: markdown
 dateCreated: 2026-05-31T19:30:41.005Z
@@ -51,5 +51,6 @@ Detailed information on traefik-kop setup available on the [Traefik-kop Setup Pa
 
 ## Socket Proxy
 
+Deploy `/docker/socket-proxy/docker-compose.yml` using portainer
 
 ## Homepage auto discovery
