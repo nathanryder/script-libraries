@@ -2,7 +2,7 @@
 title: 3-Tailscale-Setup
 description: 
 published: true
-date: 2026-05-31T19:56:27.918Z
+date: 2026-05-31T19:58:50.513Z
 tags: 
 editor: markdown
 dateCreated: 2026-05-31T13:14:17.679Z
