@@ -1,4 +1,14 @@
-# 3. Tailscale Setup
+---
+title: 3-Tailscale-Setup
+description: 
+published: true
+date: 2026-05-31T19:49:00.815Z
+tags: 
+editor: markdown
+dateCreated: 2026-05-31T13:14:17.679Z
+---
+
+# Tailscale Setup
 
 Tailscale is installed directly on the VM hosts, not in Docker. This means the entire VM is on the Tailscale network and all containers benefit from it automatically.
 
