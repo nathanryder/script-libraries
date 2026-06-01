@@ -17,8 +17,15 @@ discovery.relabel "containers" {
 
   rule {
     target_label = "hostname"
-    replacement  = env("HOSTNAME")
+    replacement  = env("INSTANCE")
   }
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    target_label  = "container"
+    regex         = "/(.*)"
+  }
+
 
   rule {
     source_labels = ["__meta_docker_network_name"]
