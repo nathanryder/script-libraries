@@ -1,0 +1,40 @@
+services:
+  alloy-init:
+    image: alpine:latest
+    container_name: alloy-init
+    entrypoint: sh
+    command: >
+      -c "apk add --no-cache git &&
+          git clone https://github.com/${GIT_USERNAME}/${GIT_REPO}.git /repo &&
+          cp -r /repo/docker/alloy/config/. /etc/alloy/"
+    volumes:
+      - alloy_config:/etc/alloy
+    restart: no
+
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy
+    pull_policy: always
+    restart: unless-stopped
+    depends_on:
+      alloy-init:
+        condition: service_completed_successfully
+    command:
+      - "run"
+      - "--server.http.listen-addr=0.0.0.0:12345"
+      - "/etc/alloy/config.alloy"
+    volumes:
+      - alloy_config:/etc/alloy
+      - /var/log:/var/log:ro
+      - /run/user/1000/docker.sock:/var/run/docker.sock
+    ports:
+      - "12345:12345"
+    networks:
+      - monitoring
+
+volumes:
+  alloy_config:
+
+networks:
+  monitoring:
+    external: true
