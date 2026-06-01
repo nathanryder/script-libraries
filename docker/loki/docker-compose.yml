@@ -25,13 +25,14 @@ services:
       - loki_config:/etc/loki
     networks:
       - monitoring
+    ports:
+      - "3100:3100"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.loki.rule=Host(`loki.${DOMAIN}`)"
       - "traefik.http.routers.loki.entrypoints=websecure"
       - "traefik.http.routers.loki.tls.certresolver=letsencrypt"
       - "traefik.http.services.loki.loadbalancer.server.port=3100"
-      - "traefik.http.routers.loki.middlewares=authentik-forward-auth@file"
       - "homepage.group=Observability"
       - "homepage.name=Loki"
       - "homepage.icon=loki.png"
