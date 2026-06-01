@@ -1,0 +1,48 @@
+services:
+  loki-init:
+    image: alpine:latest
+    container_name: loki-init
+    entrypoint: sh
+    command: >
+      -c "apk add --no-cache git &&
+          git clone https://github.com/${GIT_USERNAME}/${GIT_REPO}.git /repo &&
+          cp -r /repo/docker/observability/loki/config/. /etc/loki/"
+    volumes:
+      - loki_config:/etc/loki
+    restart: no
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    pull_policy: always
+    restart: unless-stopped
+    depends_on:
+      loki-init:
+        condition: service_completed_successfully
+    command: -config.file=/etc/loki/loki.yml
+    volumes:
+      - loki_data:/loki
+      - loki_config:/etc/loki
+    networks:
+      - monitoring
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.loki.rule=Host(`loki.${DOMAIN}`)"
+      - "traefik.http.routers.loki.entrypoints=websecure"
+      - "traefik.http.routers.loki.tls.certresolver=letsencrypt"
+      - "traefik.http.services.loki.loadbalancer.server.port=3100"
+      - "traefik.http.routers.loki.middlewares=authentik-forward-auth@file"
+      - "homepage.group=Observability"
+      - "homepage.name=Loki"
+      - "homepage.icon=loki.png"
+      - "homepage.href=https://loki.${DOMAIN}"
+      - "homepage.description=Log Aggregation"
+      - "homepage.docker=obs-vm"
+
+volumes:
+  loki_data:
+  loki_config:
+
+networks:
+  monitoring:
+    external: true
