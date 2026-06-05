@@ -6,7 +6,7 @@ services:
     command: >
       -c "apk add --no-cache git &&
           git clone https://github.com/${GIT_USERNAME}/${GIT_REPO}.git /repo &&
-          cp -r /repo/docker/observability/prometheus/config/. /etc/prometheus/"
+          cp -r /repo/docker/prometheus/config/. /etc/prometheus/"
     volumes:
       - prometheus_config:/etc/prometheus
     restart: no
