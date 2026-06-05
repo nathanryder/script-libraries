@@ -10,4 +10,3 @@ services:
       - "--path.rootfs=/host"
     volumes:
       - /:/host:ro,rslave
-    network_mode: host
