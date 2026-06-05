@@ -1,0 +1,54 @@
+services:
+  prometheus-init:
+    image: alpine:latest
+    container_name: prometheus-init
+    entrypoint: sh
+    command: >
+      -c "apk add --no-cache git &&
+          git clone https://github.com/${GIT_USERNAME}/${GIT_REPO}.git /repo &&
+          cp -r /repo/docker/observability/prometheus/config/. /etc/prometheus/"
+    volumes:
+      - prometheus_config:/etc/prometheus
+    restart: no
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    pull_policy: always
+    restart: unless-stopped
+    depends_on:
+      prometheus-init:
+        condition: service_completed_successfully
+    ports:
+      - "9090:9090"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=30d"
+      - "--web.enable-lifecycle"
+    volumes:
+      - prometheus_data:/prometheus
+      - prometheus_config:/etc/prometheus
+    networks:
+      - monitoring
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.${DOMAIN}`)"
+      - "traefik.http.routers.prometheus.entrypoints=websecure"
+      - "traefik.http.routers.prometheus.tls.certresolver=letsencrypt"
+      - "traefik.http.services.prometheus.loadbalancer.server.port=9090"
+      - "traefik.http.routers.prometheus.middlewares=authentik-forward-auth@file"
+      - "homepage.group=Observability"
+      - "homepage.name=Prometheus"
+      - "homepage.icon=prometheus.png"
+      - "homepage.href=https://prometheus.${DOMAIN}"
+      - "homepage.description=Metrics"
+      - "homepage.docker=obs-vm"
+
+volumes:
+  prometheus_data:
+  prometheus_config:
+
+networks:
+  monitoring:
+    external: true
