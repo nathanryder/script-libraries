@@ -6,6 +6,10 @@ services:
     restart: unless-stopped
     ports:
       - "7070:8080"
+    command:
+      - "--docker=unix:///var/run/docker.sock"
+      - "--docker_only=true"
+      - "--store_container_labels=true"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
