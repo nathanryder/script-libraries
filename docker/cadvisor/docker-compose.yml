@@ -15,6 +15,7 @@ services:
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /run/user/1000/docker.sock:/var/run/docker.sock:ro
+      - /run/user/1000/docker/containerd:/run/containerd:ro
     devices:
       - /dev/kmsg
     privileged: true
