@@ -22,3 +22,9 @@ scrape_configs:
       - targets: ['192.168.1.7:9100']
         labels:
           instance: HL-OBS01V
+
+  - job_name: traefik
+    static_configs:
+      - targets: ['192.168.1.4:8082']
+        labels:
+          instance: HL-CORE01V
