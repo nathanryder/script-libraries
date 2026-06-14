@@ -50,6 +50,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "8082:8082"
     environment:
       - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     volumes:
