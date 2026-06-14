@@ -8,18 +8,6 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: cadvisor
-    static_configs:
-      - targets: ['192.168.1.4:7070']
-        labels:
-          instance: HL-CORE01V
-      - targets: ['192.168.1.5:7070']
-        labels:
-          instance: HL-SRV01V
-      - targets: ['192.168.1.7:7070']
-        labels:
-          instance: HL-OBS01V
-
   - job_name: node-exporter
     static_configs:
       - targets: ['192.168.1.3:9100']
