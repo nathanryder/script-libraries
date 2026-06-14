@@ -1,7 +1,7 @@
 services:
   node-exporter:
     hostname: ${HOSTNAME}
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1
     container_name: node-exporter
     pull_policy: always
     restart: unless-stopped

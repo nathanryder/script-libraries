@@ -1,6 +1,6 @@
 services:
   traefik-kop:
-    image: "ghcr.io/jittering/traefik-kop:latest"
+    image: "ghcr.io/jittering/traefik-kop:0.20.1"
     restart: unless-stopped
     volumes:
       - /run/user/1000/docker.sock:/var/run/docker.sock

@@ -1,6 +1,6 @@
 services:
   wikijs-db:
-    image: postgres:16-alpine
+    image: postgres:18-alpine
     container_name: wikijs-db
     pull_policy: always
     restart: unless-stopped
@@ -18,7 +18,7 @@ services:
       timeout: 5s
 
   wikijs:
-    image: ghcr.io/requarks/wiki:2
+    image: ghcr.io/requarks/wiki:2.5
     container_name: wikijs
     pull_policy: always
     restart: unless-stopped

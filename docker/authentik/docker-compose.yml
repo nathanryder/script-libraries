@@ -20,7 +20,7 @@ services:
       timeout: 5s
 
   authentik-server:
-    image: ghcr.io/goauthentik/server:latest
+    image: ghcr.io/goauthentik/server:2026.5.3
     container_name: authentik-server
     pull_policy: always
     restart: unless-stopped
@@ -54,7 +54,7 @@ services:
       - "homepage.description=Identity Provider"
 
   authentik-worker:
-    image: ghcr.io/goauthentik/server:latest
+    image: ghcr.io/goauthentik/server:2026.5.3
     container_name: authentik-worker
     pull_policy: always
     restart: unless-stopped

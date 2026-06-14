@@ -1,6 +1,6 @@
 services:
   adguard:
-    image: adguard/adguardhome:latest
+    image: adguard/adguardhome:0.107.77
     container_name: adguard
     pull_policy: always
     restart: unless-stopped
@@ -27,7 +27,7 @@ services:
       - "traefik.http.routers.adguard.middlewares=authentik-forward-auth@file"
 
   adguard-exporter:
-    image: ebrianne/adguard-exporter:latest
+    image: ebrianne/adguard-exporter:v1.14
     container_name: adguard-exporter
     restart: unless-stopped
     ports:

@@ -1,6 +1,6 @@
 services:
   wealthfolio:
-    image: wealthfolio/wealthfolio:latest
+    image: wealthfolio/wealthfolio:v3.7
     container_name: wealthfolio
     restart: unless-stopped
     ports:

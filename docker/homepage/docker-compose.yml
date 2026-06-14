@@ -1,6 +1,6 @@
 services:
   homepage-init:
-    image: alpine/git:latest
+    image: alpine/git:v2.52.0
     container_name: homepage-init
     entrypoint: sh
     command: >
@@ -12,7 +12,7 @@ services:
     restart: no
 
   homepage:
-    image: ghcr.io/gethomepage/homepage:latest
+    image: ghcr.io/gethomepage/homepage:v1.13.2
     container_name: homepage
     pull_policy: always
     restart: unless-stopped

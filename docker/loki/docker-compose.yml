@@ -1,6 +1,6 @@
 services:
   loki-init:
-    image: alpine:latest
+    image: alpine:3.24.0
     container_name: loki-init
     entrypoint: sh
     command: >
@@ -12,7 +12,7 @@ services:
     restart: no
 
   loki:
-    image: grafana/loki:latest
+    image: grafana/loki:3
     container_name: loki
     pull_policy: always
     restart: unless-stopped

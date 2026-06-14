@@ -1,6 +1,6 @@
 services:
   prometheus-init:
-    image: alpine:latest
+    image: alpine:2.54.0
     container_name: prometheus-init
     entrypoint: sh
     command: >
@@ -12,7 +12,7 @@ services:
     restart: no
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v3.12.0
     container_name: prometheus
     pull_policy: always
     restart: unless-stopped
