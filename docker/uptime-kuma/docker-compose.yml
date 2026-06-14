@@ -1,0 +1,28 @@
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime_kuma_data:/app/data
+    environment:
+      - UPTIME_KUMA_DISABLE_AUTH=${UPTIME_KUMA_DISABLE_AUTH:0}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.uptime-kuma.rule=Host(`uptime.${DOMAIN}`)"
+      - "traefik.http.routers.uptime-kuma.entrypoints=websecure"
+      - "traefik.http.routers.uptime-kuma.tls.certresolver=letsencrypt"
+      - "traefik.http.services.uptime-kuma.loadbalancer.server.port=3001"
+      - "traefik.http.routers.uptime-kuma.middlewares=authentik-forward-auth@file"
+      - "homepage.group=Observability"
+      - "homepage.name=Uptime Kuma"
+      - "homepage.icon=uptime-kuma.png"
+      - "homepage.href=https://uptime.${DOMAIN}"
+      - "homepage.description=Uptime Monitoring"
+      - "homepage.docker=obs-vm"
+
+volumes:
+  uptime_kuma_data:
