@@ -9,7 +9,7 @@ services:
     volumes:
       - uptime_kuma_data:/app/data
     environment:
-      - UPTIME_KUMA_DISABLE_AUTH=${UPTIME_KUMA_DISABLE_AUTH:0}
+      - UPTIME_KUMA_DISABLE_AUTH=${UPTIME_KUMA_DISABLE_AUTH}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.uptime-kuma.rule=Host(`uptime.${DOMAIN}`)"
