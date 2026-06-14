@@ -28,11 +28,6 @@ services:
     ports:
       - "3100:3100"
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.loki.rule=Host(`loki.${DOMAIN}`)"
-      - "traefik.http.routers.loki.entrypoints=websecure"
-      - "traefik.http.routers.loki.tls.certresolver=letsencrypt"
-      - "traefik.http.services.loki.loadbalancer.server.port=3100"
       - "homepage.group=Observability"
       - "homepage.name=Loki"
       - "homepage.icon=loki.png"
