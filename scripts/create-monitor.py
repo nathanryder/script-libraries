@@ -30,7 +30,7 @@ def create_monitor(api: UptimeKumaApi, name: str, url: str):
         type=MonitorType.HTTP,
         name=name,
         url=url,
-        interval=60
+        interval=120
     )
     print(f"Created monitor '{name}'")
 

@@ -1,0 +1,65 @@
+services:
+  mealie-db:
+    image: postgres:17-alpine
+    container_name: mealie-db
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${MEALIE_DB_NAME}
+      - POSTGRES_USER=${MEALIE_DB_USER}
+      - POSTGRES_PASSWORD=${MEALIE_DB_PASS}
+    volumes:
+      - mealie_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      start_period: 20s
+      interval: 30s
+      retries: 5
+      timeout: 5s
+
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v3.19.2
+    container_name: mealie
+    pull_policy: always
+    restart: unless-stopped
+    depends_on:
+      mealie-db:
+        condition: service_healthy
+    ports:
+      - "9000:9000"
+    environment:
+      - DB_ENGINE=postgres
+      - POSTGRES_USER=${MEALIE_DB_USER}
+      - POSTGRES_PASSWORD=${MEALIE_DB_PASS}
+      - POSTGRES_SERVER=mealie-db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${MEALIE_DB_NAME}
+      - BASE_URL=https://mealie.${DOMAIN}
+      - OIDC_AUTH_ENABLED=true
+      - OIDC_SIGNUP_ENABLED=true
+      - OIDC_CONFIGURATION_URL=https://auth.${DOMAIN}/application/o/mealie/.well-known/openid-configuration
+      - OIDC_CLIENT_ID=${MEALIE_OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${MEALIE_OIDC_CLIENT_SECRET}
+      - OIDC_USER_CLAIM=preferred_username
+      - OIDC_ADMIN_GROUP=Admin
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mealie.rule=Host(`mealie.${DOMAIN}`)"
+      - "traefik.http.routers.mealie.entrypoints=websecure"
+      - "traefik.http.routers.mealie.tls.certresolver=letsencrypt"
+      - "traefik.http.services.mealie.loadbalancer.server.port=9000"
+      - "homepage.group=Services VM"
+      - "homepage.name=Mealie"
+      - "homepage.icon=mealie.png"
+      - "homepage.href=https://mealie.${DOMAIN}"
+      - "homepage.description=Recipe Manager"
+      - "homepage.docker=services-vm"
+    dns:
+      - 192.168.1.4
+      - 1.1.1.1
+    volumes:
+      - mealie_data:/app/data
+
+volumes:
+  mealie_db:
+  mealie_data:
