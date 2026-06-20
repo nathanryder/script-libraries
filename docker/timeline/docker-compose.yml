@@ -1,0 +1,29 @@
+services:
+  timeline-app:
+    image: ghcr.io/nathanryder/timeline-app:sha-65a0aaa
+    ports:
+      - '8080:8080'
+    environment:
+      - FIREBASE_API_KEY=${FIREBASE_API_KEY}
+      - FIREBASE_AUTH_DOMAIN=${FIREBASE_AUTH_DOMAIN}
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_STORAGE_BUCKET=${FIREBASE_STORAGE_BUCKET}
+      - FIREBASE_MESSAGING_SENDER_ID=${FIREBASE_MESSAGING_SENDER_ID}
+      - FIREBASE_APP_ID=${FIREBASE_APP_ID}
+      - FIREBASE_MEASUREMENT_ID=${FIREBASE_MEASUREMENT_ID}
+      - FIREBASE_MULTI_USER_ENABLED=${FIREBASE_MULTI_USER_ENABLED}
+      - FIREBASE_AUTH_PROVIDER_ID=${FIREBASE_AUTH_PROVIDER_ID}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.timeline-app.rule=Host(`timeline.${DOMAIN}`)"
+      - "traefik.http.routers.timeline-app.entrypoints=websecure"
+      - "traefik.http.routers.timeline-app.tls.certresolver=letsencrypt"
+      - "traefik.http.services.timeline-app.loadbalancer.server.port=8080"
+      - "traefik.http.routers.timeline-app.middlewares=authentik-forward-auth@file"
+      - "homepage.group=Services VM"
+      - "homepage.name=Timeline App"
+      - "homepage.icon=timeline-app.png"
+      - "homepage.href=https://timeline.${DOMAIN}"
+      - "homepage.description="
+      - "homepage.docker=services-vm"
+    restart: unless-stopped
