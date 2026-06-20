@@ -19,7 +19,6 @@ services:
       - "traefik.http.routers.timeline-app.entrypoints=websecure"
       - "traefik.http.routers.timeline-app.tls.certresolver=letsencrypt"
       - "traefik.http.services.timeline-app.loadbalancer.server.port=8080"
-      - "traefik.http.routers.timeline-app.middlewares=authentik-forward-auth@file"
       - "homepage.group=Services VM"
       - "homepage.name=Timeline App"
       - "homepage.icon=timeline-app.png"
