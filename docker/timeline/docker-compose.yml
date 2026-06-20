@@ -1,6 +1,6 @@
 services:
   timeline-app:
-    image: ghcr.io/nathanryder/timeline-app:latest
+    image: ghcr.io/nathanryder/timeline-app:1.1.1
     ports:
       - '8080:8080'
     environment:
