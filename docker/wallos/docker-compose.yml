@@ -1,0 +1,32 @@
+services:
+  wallos:
+    image: bellamy/wallos:latest
+    container_name: wallos
+    pull_policy: always
+    restart: unless-stopped
+    ports:
+      - "8282:80"
+    environment:
+      - TZ=Europe/Dublin
+    volumes:
+      - wallos_db:/var/www/html/db
+      - wallos_logos:/var/www/html/images/uploads/logos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wallos.rule=Host(`wallos.${DOMAIN}`)"
+      - "traefik.http.routers.wallos.entrypoints=websecure"
+      - "traefik.http.routers.wallos.tls.certresolver=letsencrypt"
+      - "traefik.http.services.wallos.loadbalancer.server.port=80"
+      - "homepage.group=Services VM"
+      - "homepage.name=Wallos"
+      - "homepage.icon=wallos.png"
+      - "homepage.href=https://wallos.${DOMAIN}"
+      - "homepage.description=Subscription Tracker"
+      - "homepage.docker=services-vm"
+    dns:
+      - 192.168.1.4
+      - 1.1.1.1
+
+volumes:
+  wallos_db:
+  wallos_logos:
