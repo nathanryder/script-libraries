@@ -16,7 +16,7 @@ services:
       - "traefik.http.routers.wallos.rule=Host(`wallos.${DOMAIN}`)"
       - "traefik.http.routers.wallos.entrypoints=websecure"
       - "traefik.http.routers.wallos.tls.certresolver=letsencrypt"
-      - "traefik.http.services.wallos.loadbalancer.server.port=80"
+      - "traefik.http.services.wallos.loadbalancer.server.port=8282"
       - "homepage.group=Services VM"
       - "homepage.name=Wallos"
       - "homepage.icon=wallos.png"
