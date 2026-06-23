@@ -1,6 +1,6 @@
 services:
   loki-init:
-    image: alpine:3.24.0
+    image: alpine:3.24.1
     container_name: loki-init
     entrypoint: sh
     command: >
