@@ -12,7 +12,7 @@ services:
     restart: no
 
   alloy:
-    image: grafana/alloy:v1.17.0
+    image: grafana/alloy:v1.18.1
     container_name: alloy
     pull_policy: always
     restart: unless-stopped
