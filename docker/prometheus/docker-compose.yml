@@ -12,7 +12,7 @@ services:
     restart: no
 
   prometheus:
-    image: prom/prometheus:v3.13.0
+    image: prom/prometheus:v3.13.2
     container_name: prometheus
     pull_policy: always
     restart: unless-stopped
