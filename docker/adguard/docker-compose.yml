@@ -1,6 +1,6 @@
 services:
   adguard:
-    image: adguard/adguardhome:0.107.78
+    image: adguard/adguardhome:0.107.79
     container_name: adguard
     pull_policy: always
     restart: unless-stopped
