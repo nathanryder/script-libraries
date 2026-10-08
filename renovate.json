@@ -4,6 +4,7 @@
     "config:recommended"
   ],
   "minimumReleaseAge": "7 days",
+  "ignoreTests": true,
   "separateMultipleMajor": true,
   "labels": ["renovate"],
   "digest": {
