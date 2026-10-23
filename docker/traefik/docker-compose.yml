@@ -11,7 +11,7 @@ services:
         - traefik
 
   traefik:
-    image: traefik:v3.7.14
+    image: traefik:v3.7.15
     container_name: traefik
     pull_policy: always
     restart: unless-stopped
