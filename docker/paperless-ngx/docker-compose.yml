@@ -117,7 +117,7 @@ services:
       - "traefik.http.routers.paperless.tls.certresolver=letsencrypt"
       - "traefik.http.services.paperless.loadbalancer.server.port=8000"
       - "homepage.docker=services-vm"
-      - "homepage.group=Services"
+      - "homepage.group=Services VM"
       - "homepage.name=Paperless"
       - "homepage.icon=paperless-ngx.svg"
       - "homepage.href=https://paperless.${DOMAIN}"
